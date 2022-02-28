@@ -43,8 +43,9 @@ const displayData = (data) => {
 
   phoneData.forEach((phone) => {
       console.log(phone);
-    let { brand, phone_name, image } = phone; // Destructuring
+    let { brand, phone_name, image} = phone; // Destructuring
     let phoneBrand, phoneName, phoneImage;
+    const phoneId = phone.slug;
 
     // Ternary operators to check if all data are present or not. If not, then set the value as Unknown
     image === undefined ? (phoneImage = "/images/not-found.jpg") : (phoneImage = image);
@@ -59,6 +60,10 @@ const displayData = (data) => {
             <div class="card-body">
                 <h5 class="card-title text-center mb-3 fw-bolder">${phoneName}</h5>
                 <p class="card-text"><span class="fw-bolder details">Brand:</span> ${phoneBrand} </p>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="loadDetail('${phoneId}')">
+                Launch demo modal
+                </button>
             </div>
         </div>
     </div>
@@ -90,3 +95,25 @@ document.getElementById('button-search').addEventListener('click',function() {
     row.textContent = '';
     fetchData(url);
 })
+
+const loadDetail = (phonId) => {
+  console.log(phonId);
+  const url = `https://openapi.programming-hero.com/api/phone/${phonId}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => displayDetails(data.data));
+};
+
+const displayDetails = (data) => {
+  const phoneTitle = document.getElementById("exampleModalLabel");
+  phoneTitle.innerText = `${data.name}`;
+  const phoneDetails = document.getElementById("phone-details");
+  phoneDetails.innerHTML = "";
+  const div = document.createElement("div");
+  div.innerHTML = `
+    <img src="${data.image ? data.image : 'images/not-found.jpg' } " class="card-img-top img-fluid" alt="${data.name}">
+    <p class="card-text">ReleaseDate : ${data.releaseDate ? data.releaseDate : 'Not Found'} </p>
+    
+    `;
+  phoneDetails.appendChild(div);
+};
