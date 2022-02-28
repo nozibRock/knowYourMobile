@@ -111,8 +111,75 @@ const displayDetails = (data) => {
   phoneDetails.innerHTML = "";
   const div = document.createElement("div");
   div.innerHTML = `
-    <img src="${data.image ? data.image : 'images/not-found.jpg' } " class="card-img-top img-fluid" alt="${data.name}">
-    <p class="card-text">ReleaseDate : ${data.releaseDate ? data.releaseDate : 'Not Found'} </p>
+  <div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <img src="${
+              data.image ? data.image : "/images/not-found.jpg"
+            } " class="card-img-top img-fluid" alt="${data.name}">
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-md-6 ml-auto">
+            <p class="card-text">ReleaseDate : ${
+              data.releaseDate ? data.releaseDate : "Not Found"
+            } </p>
+        </div>
+
+        <div className="row">
+            <div class="col-md-6 mx-auto">
+                <p>Main Features: </p>
+                <ul>
+                    <li class="card-text">DisplaySize : ${data.mainFeatures.displaySize}</li>
+                    <li class="card-text">ChipSet : ${data.mainFeatures.chipSet}</li>
+                    <li class="card-text">Storage : ${data.mainFeatures.storage}</li>
+                    <li class="card-text">Memory : ${data.mainFeatures.memory}</li>
+                    <li class="card-text">Sensors :
+                        <ul>
+                            <li class="card-text"> ${data.mainFeatures.sensors[0]} </li>
+                            <li class="card-text"> ${data.mainFeatures.sensors[1]} </li>
+                            <li class="card-text"> ${data.mainFeatures.sensors[2]} </li>
+                            <li class="card-text"> ${data.mainFeatures.sensors[3]} </li>
+                            <li class="card-text"> ${data.mainFeatures.sensors[4]} </li>
+                            <li class="card-text"> ${data.mainFeatures.sensors[5]} </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div className="row">
+            <div class="col-md-6 mx-auto">
+                <p>Main Features: </p>
+                <ul>
+                    <li class="card-text">DisplaySize : ${data.mainFeatures.displaySize}</li>
+                    <li class="card-text">ChipSet : ${data.mainFeatures.chipSet}</li>
+                    <li class="card-text">Storage : ${data.mainFeatures.storage}</li>
+                    <li class="card-text">Memory : ${data.mainFeatures.memory}</li>
+                    <li class="card-text">Sensors :
+                        <ul>
+                            <li class="card-text"> ${data.mainFeatures.sensors[0]} </li>
+                            <li class="card-text"> ${data.mainFeatures.sensors[1]} </li>
+                            <li class="card-text"> ${data.mainFeatures.sensors[2]} </li>
+                            <li class="card-text"> ${data.mainFeatures.sensors[3]} </li>
+                            <li class="card-text"> ${data.mainFeatures.sensors[4]} </li>
+                            <li class="card-text"> ${data.mainFeatures.sensors[5]} </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        
+        <p class="card-text">WLAN : ${data.others.WLAN}</p>
+        <p class="card-text">Bluetooth : ${data.others.Bluetooth}</p>
+        <p class="card-text">GPS : ${data.others.GPS}</p>
+        
+    </div>
+  </div>
+    
+    
     
     `;
   phoneDetails.appendChild(div);
