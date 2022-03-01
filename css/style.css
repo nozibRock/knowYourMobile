@@ -7,4 +7,9 @@
 .cursor {
     cursor: pointer;
 }
-
+#spinner {
+    display: none;
+}
+.spinner-border {
+    color: lightseagreen;
+}

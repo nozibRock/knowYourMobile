@@ -4,18 +4,15 @@ const getInputValue = (id) => {
   document.getElementById(id).value = ""; // Clear input field
   return val;
 };
-
 // function to make url from the input text
 const makeUrl = (searchText) => {
   const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
   return url;
 };
-
 // function to set the display property of an element
 const setDisplay = (id, dis) => {
   document.getElementById(id).style.display = dis;
 };
-
 // function to show message below the search box
 const showTextMessage = (text) => {
   setDisplay("spinner", "none");
@@ -30,7 +27,7 @@ const displayData = (data) => {
   const phoneData = data.data.slice(0, 20); //get first 20 phones
   const phoneNumber = phoneData.length;
   if (phoneNumber >= 20) {
-    text = `Showing results ${phoneNumber} out of ${data.data.length}`; // If more than 20 phones then showing first 20
+    text = `Showing results 20 out of ${data.data.length}`; // If more than 20 phones then showing first 20
   } else if (phoneNumber < 20) {
     text = `Showing results ${phoneNumber} out of ${data.data.length}`; // If not more than 20, then showing available phones
   } else {
@@ -86,7 +83,6 @@ document.getElementById("button-search").addEventListener("click", function () {
   setDisplay("text-message", "none");
   setDisplay("spinner", "block");
   const row = document.getElementById("search-result");
-
   //clear previous search data
   row.textContent = "";
   fetchData(url);
@@ -106,12 +102,6 @@ const displayDetails = (data) => {
   phoneDetails.innerHTML = "";
   const div = document.createElement("div");
   div.classList.add("container");
-/*   if (data.others === undefined) {
-    data.others = "Data nai";
-  }
-  let others = data.others; */
-
-  // others === undefined ? others = '' : others = others;
 
   div.innerHTML = `
   <div class="row">
