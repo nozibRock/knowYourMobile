@@ -55,7 +55,7 @@ const displayData = (data) => {
     const phoneDiv = document.createElement("div");
     phoneDiv.innerHTML = `
     <div class="col">
-        <div class="card h-100">
+        <div class="card h-100 p-3 rounded">
             <img src=${phoneImage} class="card-img-top img-fluid" alt="${phoneName}">
             <div class="card-body">
                 <h5 class="card-title text-center mb-3 fw-bolder">${phoneName}</h5>
@@ -121,62 +121,90 @@ const displayDetails = (data) => {
         
     </div>
     <div class="row">
-        <div class="col-md-6 ml-auto">
+        <div class="col">
             <p class="card-text">ReleaseDate : ${
               data.releaseDate ? data.releaseDate : "Not Found"
-            } </p>
+            }</p>
         </div>
-
-        <div className="row">
-            <div class="col-md-6 mx-auto">
-                <p>Main Features: </p>
-                <ul>
-                    <li class="card-text">DisplaySize : ${data.mainFeatures.displaySize}</li>
-                    <li class="card-text">ChipSet : ${data.mainFeatures.chipSet}</li>
-                    <li class="card-text">Storage : ${data.mainFeatures.storage}</li>
-                    <li class="card-text">Memory : ${data.mainFeatures.memory}</li>
-                    <li class="card-text">Sensors :
-                        <ul>
-                            <li class="card-text"> ${data.mainFeatures.sensors[0]} </li>
-                            <li class="card-text"> ${data.mainFeatures.sensors[1]} </li>
-                            <li class="card-text"> ${data.mainFeatures.sensors[2]} </li>
-                            <li class="card-text"> ${data.mainFeatures.sensors[3]} </li>
-                            <li class="card-text"> ${data.mainFeatures.sensors[4]} </li>
-                            <li class="card-text"> ${data.mainFeatures.sensors[5]} </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        <div className="row">
-            <div class="col-md-6 mx-auto">
-                <p>Main Features: </p>
-                <ul>
-                    <li class="card-text">DisplaySize : ${data.mainFeatures.displaySize}</li>
-                    <li class="card-text">ChipSet : ${data.mainFeatures.chipSet}</li>
-                    <li class="card-text">Storage : ${data.mainFeatures.storage}</li>
-                    <li class="card-text">Memory : ${data.mainFeatures.memory}</li>
-                    <li class="card-text">Sensors :
-                        <ul>
-                            <li class="card-text"> ${data.mainFeatures.sensors[0]} </li>
-                            <li class="card-text"> ${data.mainFeatures.sensors[1]} </li>
-                            <li class="card-text"> ${data.mainFeatures.sensors[2]} </li>
-                            <li class="card-text"> ${data.mainFeatures.sensors[3]} </li>
-                            <li class="card-text"> ${data.mainFeatures.sensors[4]} </li>
-                            <li class="card-text"> ${data.mainFeatures.sensors[5]} </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        
-        <p class="card-text">WLAN : ${data.others.WLAN}</p>
-        <p class="card-text">Bluetooth : ${data.others.Bluetooth}</p>
-        <p class="card-text">GPS : ${data.others.GPS}</p>
-        
     </div>
+    <div class="row">
+            <div class="col-md-6">
+                <h6 class="card-text">Main Features: </h6>
+                <ul>
+                    <li class="card-text">Display Size : ${
+                      data.mainFeatures.displaySize
+                        ? data.mainFeatures.displaySize
+                        : ""
+                    }</li>
+                    <li class="card-text">ChipSet : ${
+                      data.mainFeatures.chipSet ? data.mainFeatures.chipSet : ""
+                    }</li>
+                    <li class="card-text">Storage : ${
+                      data.mainFeatures.storage ? data.mainFeatures.storage : ""
+                    }</li>
+                    <li class="card-text">Memory : ${
+                      data.mainFeatures.memory ? data.mainFeatures.memory : ""
+                    }</li>
+                    <li class="card-text">Sensors :
+                        <ul>
+                            <li class="card-text"> ${
+                              data.mainFeatures.sensors[0]
+                                ? data.mainFeatures.sensors[0]
+                                : ""
+                            } </li>
+                            <li class="card-text"> ${
+                              data.mainFeatures.sensors[1]
+                                ? data.mainFeatures.sensors[1]
+                                : ""
+                            } </li>
+                            <li class="card-text"> ${
+                              data.mainFeatures.sensors[2]
+                                ? data.mainFeatures.sensors[2]
+                                : ""
+                            } </li>
+                            <li class="card-text"> ${
+                              data.mainFeatures.sensors[3]
+                                ? data.mainFeatures.sensors[3]
+                                : ""
+                            } </li>
+                            <li class="card-text"> ${
+                              data.mainFeatures.sensors[4]
+                                ? data.mainFeatures.sensors[4]
+                                : ""
+                            } </li>
+                            <li class="card-text"> ${
+                              data.mainFeatures.sensors[5]
+                                ? data.mainFeatures.sensors[5]
+                                : ""
+                            } </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h6 class="card-text>Others: </h6>
+                <ul>
+                    <li class="card-text">Wireless LAN : ${
+                      data.others.WLAN ? data.others.WLAN : ""
+                    }</li>
+                    <li class="card-text">Bluetooth : ${
+                      data.others.Bluetooth ? data.others.Bluetooth : ""
+                    }</li>
+                    <li class="card-text">GPS : ${
+                      data.others.GPS ? data.others.GPS : ""
+                    }</li>
+                    <li class="card-text">NFC : ${
+                      data.others.NFC ? data.others.NFC : ""
+                    }</li>
+                    <li class="card-text">Radio : ${
+                      data.others.Radio ? data.others.Radio : ""
+                    }</li>
+                    <li class="card-text">USB : ${
+                      data.others.USB ? data.others.USB : ""
+                    }</li>
+                </ul>
+            </div>
+        </div>
   </div>
     
     
