@@ -5,28 +5,27 @@ const getInputValue = (id) => {
   return val;
 };
 
-// function to make url from the input text 
-const makeUrl = searchText => {
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
-    return url;
-}
+// function to make url from the input text
+const makeUrl = (searchText) => {
+  const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+  return url;
+};
 
-// function to set the display property of an element 
-const setDisplay = (id,dis) => {
-    document.getElementById(id).style.display = dis;
-}
+// function to set the display property of an element
+const setDisplay = (id, dis) => {
+  document.getElementById(id).style.display = dis;
+};
 
-// function to show message below the search box 
-const showTextMessage = text => {
-    setDisplay('spinner','none');
-    setDisplay('text-message','block');
-    document.getElementById('text-message').innerHTML = text;
-}
-
+// function to show message below the search box
+const showTextMessage = (text) => {
+  setDisplay("spinner", "none");
+  setDisplay("text-message", "block");
+  document.getElementById("text-message").innerHTML = text;
+};
 
 // function to display data found from api
 const displayData = (data) => {
-    console.log(data);
+  console.log(data);
   let text;
   const searchResult = document.getElementById("search-result");
   const phoneData = data.data.slice(0, 20); //get first 20 phones
@@ -42,8 +41,8 @@ const displayData = (data) => {
   showTextMessage(text);
 
   phoneData.forEach((phone) => {
-      console.log(phone);
-    let { brand, phone_name, image} = phone; // Destructuring
+    console.log(phone);
+    let { brand, phone_name, image } = phone; // Destructuring
     let phoneBrand, phoneName, phoneImage;
     const phoneId = phone.slug;
 
@@ -54,54 +53,49 @@ const displayData = (data) => {
 
     const phoneDiv = document.createElement("div");
     phoneDiv.innerHTML = `
-    <div class="col">
-        <div class="card h-100 p-3 rounded">
+    <div class="col cursor">
+        <div class="card h-100 p-3 rounded shadow-lg">
             <img src=${phoneImage} class="card-img-top img-fluid" alt="${phoneName}">
             <div class="card-body">
                 <h5 class="card-title text-center mb-3 fw-bolder">${phoneName}</h5>
                 <p class="card-text"><span class="fw-bolder details">Brand:</span> ${phoneBrand} </p>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="loadDetail('${phoneId}')">
-                Launch demo modal
-                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="loadDetail('${phoneId}')">Details</button>
             </div>
         </div>
     </div>
     `;
-     searchResult.appendChild(phoneDiv);
+    searchResult.appendChild(phoneDiv);
   });
 };
 
-// function to fetch api data 
-const fetchData = url => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => displayData(data))
-    //   .then((data) => console.log(data.phone_name))
-      .catch(() =>
-        showTextMessage("Something went wrong. Please try again later!")
-      );
-}
-
-// Search button event listener 
-document.getElementById('button-search').addEventListener('click',function() {
-    const inputText = getInputValue('input-field');
-    console.log(inputText);
-    const url = makeUrl(inputText);
-    console.log(url);
-    setDisplay('text-message','none');
-    setDisplay('spinner','block');
-    const row = document.getElementById("search-result");
-    row.textContent = '';
-    fetchData(url);
-})
-
-const loadDetail = (phonId) => {
-  console.log(phonId);
-  const url = `https://openapi.programming-hero.com/api/phone/${phonId}`;
+// function to fetch api data
+const fetchData = (url) => {
   fetch(url)
     .then((res) => res.json())
-    .then((data) => displayDetails(data.data));
+    .then((data) => displayData(data))
+    .catch(() =>
+      showTextMessage("Something went wrong. Please try again later!")
+    );
+};
+
+// Search button event listener
+document.getElementById("button-search").addEventListener("click", function () {
+  const inputText = getInputValue("input-field");
+  const url = makeUrl(inputText);
+  setDisplay("text-message", "none");
+  setDisplay("spinner", "block");
+  const row = document.getElementById("search-result");
+
+  //clear previous search data
+  row.textContent = "";
+  fetchData(url);
+});
+
+const loadDetail = async (phoneId) => {
+  const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displayDetails(data.data);
 };
 
 const displayDetails = (data) => {
@@ -110,41 +104,26 @@ const displayDetails = (data) => {
   const phoneDetails = document.getElementById("phone-details");
   phoneDetails.innerHTML = "";
   const div = document.createElement("div");
+  div.classList.add("container");
   div.innerHTML = `
-  <div class="container">
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <img src="${
-              data.image ? data.image : "/images/not-found.jpg"
-            } " class="card-img-top img-fluid" alt="${data.name}">
+  <div class="row">
+            <div class="col-md-6 mx-auto">
+                <img src="${ data.image ? data.image : "images/not-found.jpg"} " class="card-img-top img-fluid" alt="${data.name}">
+            </div>
         </div>
-        
-    </div>
-    <div class="row">
-        <div class="col">
-            <p class="card-text">ReleaseDate : ${
-              data.releaseDate ? data.releaseDate : "Not Found"
-            }</p>
+        <div class="row my-2">
+            <div class="col">
+                <h6 class="card-text">ReleaseDate : ${data.releaseDate ? data.releaseDate : "Not Found"}</h6>
+            </div>
         </div>
-    </div>
     <div class="row">
             <div class="col-md-6">
-                <h6 class="card-text">Main Features: </h6>
+                <h6 class="card-title">Main Features: </h6>
                 <ul>
-                    <li class="card-text">Display Size : ${
-                      data.mainFeatures.displaySize
-                        ? data.mainFeatures.displaySize
-                        : ""
-                    }</li>
-                    <li class="card-text">ChipSet : ${
-                      data.mainFeatures.chipSet ? data.mainFeatures.chipSet : ""
-                    }</li>
-                    <li class="card-text">Storage : ${
-                      data.mainFeatures.storage ? data.mainFeatures.storage : ""
-                    }</li>
-                    <li class="card-text">Memory : ${
-                      data.mainFeatures.memory ? data.mainFeatures.memory : ""
-                    }</li>
+                    <li class="card-text">Display Size : ${data.mainFeatures.displaySize ? data.mainFeatures.displaySize : ""}</li>
+                    <li class="card-text">ChipSet : ${data.mainFeatures.chipSet ? data.mainFeatures.chipSet : ""}</li>
+                    <li class="card-text">Storage : ${data.mainFeatures.storage ? data.mainFeatures.storage : ""}</li>
+                    <li class="card-text">Memory : ${data.mainFeatures.memory ? data.mainFeatures.memory : ""}</li>
                     <li class="card-text">Sensors :
                         <ul>
                             <li class="card-text"> ${
@@ -182,7 +161,7 @@ const displayDetails = (data) => {
                 </ul>
             </div>
             <div class="col-md-6">
-                <h6 class="card-text>Others: </h6>
+                <h6 class="card-title">Others: </h6>
                 <ul>
                     <li class="card-text">Wireless LAN : ${
                       data.others.WLAN ? data.others.WLAN : ""
@@ -193,7 +172,8 @@ const displayDetails = (data) => {
                     <li class="card-text">GPS : ${
                       data.others.GPS ? data.others.GPS : ""
                     }</li>
-                    <li class="card-text">NFC : ${
+                    
+                    <li class="card-text">Near-field communication : ${
                       data.others.NFC ? data.others.NFC : ""
                     }</li>
                     <li class="card-text">Radio : ${
@@ -205,10 +185,6 @@ const displayDetails = (data) => {
                 </ul>
             </div>
         </div>
-  </div>
-    
-    
-    
     `;
   phoneDetails.appendChild(div);
 };

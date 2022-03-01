@@ -4,8 +4,7 @@
 .display-class {
     display: none;
 }
-.err-msg {
-    background-color: lightseagreen;
-    border-radius: 5px;
+.cursor {
+    cursor: pointer;
 }
 
