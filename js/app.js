@@ -106,10 +106,12 @@ const displayDetails = (data) => {
   phoneDetails.innerHTML = "";
   const div = document.createElement("div");
   div.classList.add("container");
-  if (data.others === undefined) {
+/*   if (data.others === undefined) {
     data.others = "Data nai";
   }
-  let others = data.others;
+  let others = data.others; */
+
+  // others === undefined ? others = '' : others = others;
 
   div.innerHTML = `
   <div class="row">
@@ -119,16 +121,16 @@ const displayDetails = (data) => {
                 } " class="card-img-top img-fluid" alt="${data.name}">
             </div>
         </div>
-        <div class="row my-2">
+        <div class="row my-3">
             <div class="col">
-                <h6 class="card-text">ReleaseDate : ${
+                <h6 class="card-text fw-bold">ReleaseDate : ${
                   data.releaseDate ? data.releaseDate : "Not Found"
                 }</h6>
             </div>
         </div>
     <div class="row">
             <div class="col-md-6">
-                <h6 class="card-title">Main Features: </h6>
+                <h6 class="card-title fw-bold my-3">Main Features: </h6>
                 <ul>
                     <li class="card-text">Display Size : ${
                       data.mainFeatures.displaySize
@@ -146,52 +148,44 @@ const displayDetails = (data) => {
                     }</li>
                     <li class="card-text">Sensors :
                         <ul>
-                            <li class="card-text"> ${
-                              data.mainFeatures.sensors[0]
-                                ? data.mainFeatures.sensors[0]
-                                : ""
-                            } </li>
-                            <li class="card-text"> ${
-                              data.mainFeatures.sensors[1]
-                                ? data.mainFeatures.sensors[1]
-                                : ""
-                            } </li>
-                            <li class="card-text"> ${
-                              data.mainFeatures.sensors[2]
-                                ? data.mainFeatures.sensors[2]
-                                : ""
-                            } </li>
-                            <li class="card-text"> ${
-                              data.mainFeatures.sensors[3]
-                                ? data.mainFeatures.sensors[3]
-                                : ""
-                            } </li>
-                            <li class="card-text"> ${
-                              data.mainFeatures.sensors[4]
-                                ? data.mainFeatures.sensors[4]
-                                : ""
-                            } </li>
-                            <li class="card-text"> ${
-                              data.mainFeatures.sensors[5]
-                                ? data.mainFeatures.sensors[5]
-                                : ""
-                            } </li>
+                          ${data.mainFeatures.sensors[0] ? `
+                            <li class="card-text">${data.mainFeatures.sensors[0]}</li>
+                          ` : ''}
+                          ${data.mainFeatures.sensors[1] ? `
+                            <li class="card-text">${data.mainFeatures.sensors[1]}</li>
+                          ` : ''}
+                          ${data.mainFeatures.sensors[2] ? `
+                            <li class="card-text">${data.mainFeatures.sensors[2]}</li>
+                          ` : ''}
+                          ${data.mainFeatures.sensors[3] ? `
+                            <li class="card-text">${data.mainFeatures.sensors[3]}</li>
+                          ` : ''}
+                          ${data.mainFeatures.sensors[4] ? `
+                            <li class="card-text">${data.mainFeatures.sensors[4]}</li>
+                          ` : ''}
+                          ${data.mainFeatures.sensors[5] ? `
+                            <li class="card-text">${data.mainFeatures.sensors[5]}</li>
+                          ` : ''}
+
                         </ul>
                     </li>
                 </ul>
             </div>
-            <div class="col-md-6">
-                <h6 class="card-title">Others: </h6>
+            <div class="col-md-6"> ${
+              data.others
+                ? `
+                <h6 class="card-title fw-bold my-3">Others: </h6>
                 <ul>
-                    <li class="card-text">Wireless LAN : ${others.WLAN}</li>
-                    <li class="card-text">Bluetooth : ${others.Bluetooth}</li>
-                    <li class="card-text">GPS : ${others.GPS}</li>
-                    <li class="card-text">Near-field communication : ${
-                      others.NFC
-                    }</li>
-                    <li class="card-text">Radio : ${others.Radio}</li>
-                    <li class="card-text">USB : ${others.USB}</li>
+                    <li><span>WLAN:</span> ${data.others.WLAN}</li>
+                    <li><span>Bluetooth:</span> ${data.others.Bluetooth}</li>
+                    <li><span>GPS:</span> ${data.others.GPS}</li>
+                    <li><span>NFC:</span> ${data.others.NFC}</li>
+                    <li><span>Radio:</span> ${data.others.Radio}</li>
+                    <li><span>USB:</span> ${data.others.USB}</li>
                 </ul>
+            `
+                : ""
+            }
             </div>
         </div>
     `;
