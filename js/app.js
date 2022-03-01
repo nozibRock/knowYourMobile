@@ -53,7 +53,7 @@ const displayData = (data) => {
 
     const phoneDiv = document.createElement("div");
     phoneDiv.innerHTML = `
-    <div class="col cursor">
+    <div class="col cursor"  data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="loadDetail('${phoneId}')">
         <div class="card h-100 p-3 rounded shadow-lg">
             <img src=${phoneImage} class="card-img-top img-fluid" alt="${phoneName}">
             <div class="card-body">
