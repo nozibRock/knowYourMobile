@@ -25,11 +25,9 @@ const showTextMessage = (text) => {
 
 // function to display data found from api
 const displayData = (data) => {
-  console.log(data);
   let text;
   const searchResult = document.getElementById("search-result");
   const phoneData = data.data.slice(0, 20); //get first 20 phones
-  console.log(phoneData);
   const phoneNumber = phoneData.length;
   if (phoneNumber >= 20) {
     text = `Showing results ${phoneNumber} out of ${data.data.length}`; // If more than 20 phones then showing first 20
@@ -41,19 +39,22 @@ const displayData = (data) => {
   showTextMessage(text);
 
   phoneData.forEach((phone) => {
-    console.log(phone);
     let { brand, phone_name, image } = phone; // Destructuring
     let phoneBrand, phoneName, phoneImage;
     const phoneId = phone.slug;
 
     // Ternary operators to check if all data are present or not. If not, then set the value as Unknown
-    image === undefined ? (phoneImage = "/images/not-found.jpg") : (phoneImage = image);
-    phone_name === undefined ? (phoneName = "Unknown") : (phoneName = phone_name);
+    image === undefined
+      ? (phoneImage = "/images/not-found.jpg")
+      : (phoneImage = image);
+    phone_name === undefined
+      ? (phoneName = "Unknown")
+      : (phoneName = phone_name);
     brand === undefined ? (phoneBrand = "Unknown") : (phoneBrand = brand);
 
     const phoneDiv = document.createElement("div");
     phoneDiv.innerHTML = `
-    <div class="col cursor"  data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="loadDetail('${phoneId}')">
+    <div class="col cursor" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="loadDetail('${phoneId}')">
         <div class="card h-100 p-3 rounded shadow-lg">
             <img src=${phoneImage} class="card-img-top img-fluid" alt="${phoneName}">
             <div class="card-body">
@@ -105,25 +106,44 @@ const displayDetails = (data) => {
   phoneDetails.innerHTML = "";
   const div = document.createElement("div");
   div.classList.add("container");
+  if (data.others === undefined) {
+    data.others = "Data nai";
+  }
+  let others = data.others;
+
   div.innerHTML = `
   <div class="row">
             <div class="col-md-6 mx-auto">
-                <img src="${ data.image ? data.image : "images/not-found.jpg"} " class="card-img-top img-fluid" alt="${data.name}">
+                <img src="${
+                  data.image ? data.image : "images/not-found.jpg"
+                } " class="card-img-top img-fluid" alt="${data.name}">
             </div>
         </div>
         <div class="row my-2">
             <div class="col">
-                <h6 class="card-text">ReleaseDate : ${data.releaseDate ? data.releaseDate : "Not Found"}</h6>
+                <h6 class="card-text">ReleaseDate : ${
+                  data.releaseDate ? data.releaseDate : "Not Found"
+                }</h6>
             </div>
         </div>
     <div class="row">
             <div class="col-md-6">
                 <h6 class="card-title">Main Features: </h6>
                 <ul>
-                    <li class="card-text">Display Size : ${data.mainFeatures.displaySize ? data.mainFeatures.displaySize : ""}</li>
-                    <li class="card-text">ChipSet : ${data.mainFeatures.chipSet ? data.mainFeatures.chipSet : ""}</li>
-                    <li class="card-text">Storage : ${data.mainFeatures.storage ? data.mainFeatures.storage : ""}</li>
-                    <li class="card-text">Memory : ${data.mainFeatures.memory ? data.mainFeatures.memory : ""}</li>
+                    <li class="card-text">Display Size : ${
+                      data.mainFeatures.displaySize
+                        ? data.mainFeatures.displaySize
+                        : ""
+                    }</li>
+                    <li class="card-text">ChipSet : ${
+                      data.mainFeatures.chipSet ? data.mainFeatures.chipSet : ""
+                    }</li>
+                    <li class="card-text">Storage : ${
+                      data.mainFeatures.storage ? data.mainFeatures.storage : ""
+                    }</li>
+                    <li class="card-text">Memory : ${
+                      data.mainFeatures.memory ? data.mainFeatures.memory : ""
+                    }</li>
                     <li class="card-text">Sensors :
                         <ul>
                             <li class="card-text"> ${
@@ -163,25 +183,14 @@ const displayDetails = (data) => {
             <div class="col-md-6">
                 <h6 class="card-title">Others: </h6>
                 <ul>
-                    <li class="card-text">Wireless LAN : ${
-                      data.others.WLAN ? data.others.WLAN : ""
-                    }</li>
-                    <li class="card-text">Bluetooth : ${
-                      data.others.Bluetooth ? data.others.Bluetooth : ""
-                    }</li>
-                    <li class="card-text">GPS : ${
-                      data.others.GPS ? data.others.GPS : ""
-                    }</li>
-                    
+                    <li class="card-text">Wireless LAN : ${others.WLAN}</li>
+                    <li class="card-text">Bluetooth : ${others.Bluetooth}</li>
+                    <li class="card-text">GPS : ${others.GPS}</li>
                     <li class="card-text">Near-field communication : ${
-                      data.others.NFC ? data.others.NFC : ""
+                      others.NFC
                     }</li>
-                    <li class="card-text">Radio : ${
-                      data.others.Radio ? data.others.Radio : ""
-                    }</li>
-                    <li class="card-text">USB : ${
-                      data.others.USB ? data.others.USB : ""
-                    }</li>
+                    <li class="card-text">Radio : ${others.Radio}</li>
+                    <li class="card-text">USB : ${others.USB}</li>
                 </ul>
             </div>
         </div>
