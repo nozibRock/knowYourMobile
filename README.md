@@ -5,4 +5,4 @@
 ## Authors
 
 - [@ProgrammingHero1](https://www.github.com/ProgrammingHero1)
-- [@labibkhanofficialbd](https://github.com/nozibRock)
+- [@nozibRock](https://github.com/nozibRock)
